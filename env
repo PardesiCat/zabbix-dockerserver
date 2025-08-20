@@ -1,0 +1,7 @@
+# Database settings
+POSTGRES_USER=zbxuser
+POSTGRES_PASSWORD=StrongPassw0rd!
+POSTGRES_DB=zabbixdb
+
+# Timezone (adjust to your region)
+PHP_TZ=IST

@@ -5,9 +5,9 @@ services:
     image: postgres:15
     container_name: zabbix-postgres
     environment:
-      POSTGRES_USER: zabbix
-      POSTGRES_PASSWORD: zabbix
-      POSTGRES_DB: zabbix
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
     restart: always
@@ -17,15 +17,15 @@ services:
     container_name: zabbix-server
     environment:
       DB_SERVER_HOST: postgres
-      POSTGRES_USER: zabbix
-      POSTGRES_PASSWORD: zabbix
-      POSTGRES_DB: zabbix
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     depends_on:
       - postgres
     ports:
       - "10051:10051"
     volumes:
-      - ./data/zabbix-server/alertscripts:/usr/lib/zabbix/alertscripts    # custom alert scripts
+      - ./data/zabbix-server/alertscripts:/usr/lib/zabbix/alertscripts
       - ./data/zabbix-server/externalscripts:/usr/lib/zabbix/externalscripts
       - ./data/zabbix-server/modules:/var/lib/zabbix/modules
       - ./data/zabbix-server/enc:/var/lib/zabbix/enc
@@ -39,11 +39,11 @@ services:
     container_name: zabbix-frontend
     environment:
       DB_SERVER_HOST: postgres
-      POSTGRES_USER: zabbix
-      POSTGRES_PASSWORD: zabbix
-      POSTGRES_DB: zabbix
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
       ZBX_SERVER_HOST: zabbix-server
-      PHP_TZ: "UTC"
+      PHP_TZ: ${PHP_TZ}
     ports:
       - "7575:8080"
     depends_on:
